@@ -56,7 +56,7 @@ and run it with
 
 `./run_test.sh`
 
-If the test output ends with two lines,
+If the test output ends with following lines,
 
 ```
 Passed all tests
