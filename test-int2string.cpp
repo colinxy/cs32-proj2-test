@@ -5,6 +5,12 @@
 using namespace std;
 
 
+/*********************************
+ *                               *
+ *        Smallberg's Test       *
+ *                               *
+ *********************************/
+
 void test() {
     Map m;
     assert(m.insert(123, "Fred"));
@@ -25,3 +31,9 @@ int main() {
     test();
     cout << "Passed all tests" << endl;
 }
+
+/*********************************
+ *                               *
+ *    End of Smallberg's Test    *
+ *                               *
+ *********************************/
