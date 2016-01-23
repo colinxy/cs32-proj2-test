@@ -114,7 +114,7 @@ void my_test() {
     assert(m.update("bullshit", 1234.5));
     // Map::size
     assert(m.size() == 1);
-    // Map::get()
+    // Map::get
     d = 12.345;   // double
     assert(m.get("bullshit", d) && d == 1234.5);
 
@@ -131,6 +131,8 @@ void my_test() {
     assert(m.get(0, s, d) &&
            ((s == "bullshit" && d == 1234.5) ||
             (s == "angry bird" && d == 98.765)));
+    s = "string";
+    d = 0.01;
     assert(m.get(1, s, d) &&
            ((s == "bullshit" && d == 1234.5) ||
             (s == "angry bird" && d == 98.765)));
@@ -152,6 +154,7 @@ void my_test() {
      * copy constructor
      */
     Map other(m);
+    assert(other.size() == 2);
     // currently in map
     // "bullshit" => 1234.5
     // "cut the rope" => 975.31
@@ -161,6 +164,8 @@ void my_test() {
     assert(other.get(0, s, d) &&
            ((s == "bullshit" && d == 1234.5) ||
             (s == "cut the rope" && d == 975.31)));
+    s = "string";
+    d = 0.01;
     assert(other.get(1, s, d) &&
            ((s == "bullshit" && d == 1234.5) ||
             (s == "cut the rope" && d == 975.31)));
@@ -170,6 +175,7 @@ void my_test() {
      */
     Map assigned;
     assigned = m;
+    assert(other.size() == 2);
     // currently in map
     // "bullshit" => 1234.5
     // "cut the rope" => 975.31
@@ -179,6 +185,8 @@ void my_test() {
     assert(assigned.get(0, s, d) &&
            ((s == "bullshit" && d == 1234.5) ||
             (s == "cut the rope" && d == 975.31)));
+    s = "string";
+    d = 0.01;
     assert(assigned.get(1, s, d) &&
            ((s == "bullshit" && d == 1234.5) ||
             (s == "cut the rope" && d == 975.31)));
@@ -435,28 +443,47 @@ void lib_test() {
     map<string, double> map_lib;
     Map map;
 
-    const int size1 = 100;
+    const int SIZE = 100;
 
-    string rand_strs[size1];
-    for (int i = 0; i < size1; ++i)
-        rand_strs[i] = rand_string(30);
+    string rand_strs[SIZE];
+    for (int i = 0; i < SIZE; ++i)
+        rand_strs[i] = rand_string(rand() % 30 + 1);
 
-    for (int i = 0; i < size1; ++i) {
+    for (int i = 0; i < SIZE; ++i) {
         string s = rand_strs[i];
-        double d = rand() % 100;
+        double d = rand() % 1000;
 
-        map_lib[s] = d;
+        // does not insert when the key is present
+        map_lib.insert(pair<string, double>(s, d));
+        // equivalent to STL insert
         map.insert(s, d);
         assert(map_lib.size() == (size_t)map.size());
     }
 
-    for (int i = 0; i < size1; ++i) {
+    int size_actual = map_lib.size();
+
+    // Map::get
+    for (int i = 0; i < size_actual; ++i) {
         string s;
         double d;
-        map.get(i, s, d);
 
-        assert(map_lib[s] == d);
+        assert(map.get(i, s, d));
+        assert(map_lib.at(s) == d);
     }
+
+    // Map::erase
+    assert(map.size() == size_actual);
+    for (auto it = map_lib.begin(); it != map_lib.end(); ) {
+        string s = it->first;
+        double d = it->second;
+        double d_map = -100;
+        assert(map.get(s, d_map) && d == d_map);
+
+        assert(map.erase(s));
+        it = map_lib.erase(it);
+        assert(map_lib.size() == (size_t)map.size());
+    }
+    assert(map.size() == 0);
 }
 
 
