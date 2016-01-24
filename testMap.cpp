@@ -7,7 +7,7 @@
 #include <map>
 #include <cstdlib>
 #include <ctime>
-#include <functional>
+#include <algorithm>
 
 using namespace std;
 
@@ -65,7 +65,7 @@ void test() {
     string s2;
     assert(m.get(1, s2, d)  &&  s1 != s2  &&
            ((s2 == "Fred"  &&  d == 123)  ||  (s2 == "Ethel"  &&  d == 456)));
-}
+ }
 
 /*********************************
  *                               *
@@ -175,7 +175,7 @@ void my_test() {
      */
     Map assigned;
     assigned = m;
-    assert(other.size() == 2);
+    assert(assigned.size() == 2);
     // currently in map
     // "bullshit" => 1234.5
     // "cut the rope" => 975.31
