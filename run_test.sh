@@ -57,7 +57,7 @@ rm testMap.out
 # Map   int => string
 if grep 'using[[:space:]]namespace' Map.h
 then
-    echo "It is not advised to have using namespace in header file"
+    echo "It is not advised to have \`using namespace' in header file"
     exit 1
 fi
 
@@ -78,4 +78,4 @@ for f in "${files[@]}"; do
 done
 
 echo
-echo "****** All Test Passed ******"
+echo "****** All Tests Passed ******"
