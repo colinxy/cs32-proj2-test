@@ -191,6 +191,24 @@ void my_test() {
            ((s == "bullshit" && d == 1234.5) ||
             (s == "cut the rope" && d == 975.31)));
 
+    // self-assignment
+    assigned = assigned;
+    assert(assigned.size() == 2);
+    // currently in map
+    // "bullshit" => 1234.5
+    // "cut the rope" => 975.31
+    s = "string";
+    d = 0.01;
+    assert(!assigned.get(-1, s, d) && s == "string" && d == 0.01);
+    assert(assigned.get(0, s, d) &&
+           ((s == "bullshit" && d == 1234.5) ||
+            (s == "cut the rope" && d == 975.31)));
+    s = "string";
+    d = 0.01;
+    assert(assigned.get(1, s, d) &&
+           ((s == "bullshit" && d == 1234.5) ||
+            (s == "cut the rope" && d == 975.31)));
+
     /*
      * Map::swap
      */
