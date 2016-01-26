@@ -1,17 +1,16 @@
 #! /bin/sh
 
-
 declare -a files=(
     "Map.cpp"
     "Map.h"
 )
 
 function cleanup {
-  for f in "${files[@]}"; do
-      rm "$f"
-  done
-  rm testMap.out
-  exit $1
+    for f in "${files[@]}"; do
+        rm "$f"
+    done
+    rm testMap.out
+    exit $1
 }
 
 for f in "${files[@]}"; do
@@ -49,7 +48,6 @@ then
     echo "The source files you submit for this project "
 "must not contain the word friend or the character ["
     cleanup 2
-
 fi
 
 
@@ -90,9 +88,9 @@ g++ -std=c++11 -Wall -Wextra \
 
 if [[ $? -eq 139 ]]
 then
-  echo "****** Test Failed ******"
-  echo "Segfault occurred. Please check for pointer exceptions."
-  cleanup 1
+    echo "****** Test Failed ******"
+    echo "Segfault occurred. Please check for pointer exceptions."
+    cleanup 1
 fi
 
 rm testMap.out
@@ -101,17 +99,17 @@ rm testMap.out
 
 if [[ -z `cat log` ]]
 then
-  echo "****** All Tests Passed ******"
+    echo "****** All Tests Passed ******"
 else
-  echo "****** Test Failed ******"
-  if [[ -z $1 ]]
-  then
-    python ./print_error.py log
-  else
-    python ./print_error.py log -n "$1"
-  fi
+    echo "****** Test Failed ******"
+    if [[ -z $1 ]]
+    then
+        python ./print_error.py log
+    else
+        python ./print_error.py log -n "$1"
+    fi
 fi
 
-#clean up .cpp and .h files
+# Final cleanup
 
-cleanup
+cleanup 0

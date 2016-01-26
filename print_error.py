@@ -6,12 +6,12 @@ Expand Error Log For Specified Test Code
 import random, sys, re
 from optparse import OptionParser, OptionGroup
 
-
 class Error:
     def __init__(self, file, msg, line):
         self.file = file;
         self.msg = msg;
         self.line = int(line);
+
 
 class Logger:
 
@@ -39,7 +39,6 @@ class Logger:
         return range(l_bound, r_bound)
 
     def print_error(self):
-        LINE_MARK = "--> | "
         for (i, error) in enumerate(self.errors):
             print
             print '='*80
@@ -54,11 +53,9 @@ class Logger:
                     lines.append('{: <3}-->'.format(line) + f[line])
                 else:
                     lines.append('{: <6}'.format(line) + f[line])
-
             print
             for line in lines:
                 print line
-
 
     def parse_log(self):
         regex = re.compile('^Assertion failed: (.+?), .+?file (.+?), line (\d+).$');
