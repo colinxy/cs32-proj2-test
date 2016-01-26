@@ -512,7 +512,7 @@ int main() {
     test_non_member();
     lib_test();
 
-    cout << "Passed all tests" << endl;
+//    cout << "Passed all tests" << endl;
 
     return 0;
 }
