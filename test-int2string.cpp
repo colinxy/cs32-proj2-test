@@ -29,7 +29,7 @@ void test() {
 
 int main() {
     test();
-    cout << "Passed all tests" << endl;
+//    cout << "Passed all tests" << endl;
 }
 
 /*********************************
