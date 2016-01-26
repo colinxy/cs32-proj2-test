@@ -57,7 +57,7 @@ g++ -std=c++11 -Wall -Wextra \
 
 echo "" > log
 
-./testMap.out >> log 2>&1
+{ ./testMap.out; }>>log 2>&1
 
 if [[ $? -eq 139 ]]
 then
@@ -82,7 +82,7 @@ rm tmpMap.h
 g++ -std=c++11 -Wall -Wextra \
 -o testMap.out test-int2string.cpp Map.cpp
 
-./testMap.out >> log 2>&1
+{ ./testMap.out; }>>log 2>&1
 
 # Catches segmentation fault
 
