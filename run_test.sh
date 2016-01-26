@@ -6,10 +6,12 @@ declare -a files=(
 )
 
 function cleanup {
-    for f in "${files[@]}"; do
-        rm "$f"
-    done
-    rm testMap.out
+    {
+        for f in "${files[@]}"; do
+            rm "$f"
+        done
+        rm testMap.out;
+    } >> /dev/null 2>&1
     exit $1
 }
 
